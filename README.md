@@ -1,8 +1,8 @@
-# A POSIX-Compliant Shell (CLI) Implementation in Rust
+# `ilsh` - A POSIX-Compliant Shell (CLI) Implementation in Rust
 
 [![license](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](LICENSE)
-[![Crates.io](https://img.shields.io/crates/v/posix-shell.svg)](https://crates.io/crates/posix-shell)
-[![docs.rs](https://docs.rs/posix-shell/badge.svg)](https://docs.rs/posix-shell/)
+[![Crates.io](https://img.shields.io/crates/v/ilsh.svg)](https://crates.io/crates/ilsh)
+[![docs.rs](https://docs.rs/ilsh/badge.svg)](https://docs.rs/ilsh/)
 [![CI](https://github.com/ivanbgd/posix-shell-rust/actions/workflows/ci.yml/badge.svg)](https://github.com/ivanbgd/posix-shell-rust/actions/workflows/ci.yml)
 [![Security audit](https://github.com/ivanbgd/posix-shell-rust/actions/workflows/audit.yml/badge.svg)](https://github.com/ivanbgd/posix-shell-rust/actions/workflows/audit.yml)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
@@ -20,7 +20,8 @@
 # Notes
 
 - Mostly [bash](https://www.gnu.org/software/bash/) is used as a reference, but not everything is in accordance
-  with `bash`. Some things are in accordance with the `zsh` - for example, multiple redirection.
+  with `bash`.
+    - ~~Some things are in accordance with the `zsh` - for example, multiple redirection.~~
 - Supports running external programs with arguments.
     - External programs are located using the [PATH](https://en.wikipedia.org/wiki/PATH_(variable)) environment
       variable.

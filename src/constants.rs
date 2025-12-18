@@ -2,7 +2,7 @@
 //!
 //! Constants, global variables and types used throughout the application
 
-use crate::cmd::{handle_cd, handle_echo, handle_exit, handle_pwd, handle_type, Output};
+use crate::cmd::{Output, handle_cd, handle_echo, handle_exit, handle_pwd, handle_type};
 use std::sync::OnceLock;
 
 /// Allows debug printouts

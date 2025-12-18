@@ -16,7 +16,7 @@ sleep 1s # Give test shell some time to build.
 
 # A shorthand for running the shell under test.
 # TODO: Probably remove 2>/dev/null
-shell="exec /tmp/build-shell/release/posix-shell 2>/dev/null &"
+shell="exec /tmp/build-shell/release/ilsh 2>/dev/null &"
 
 # Start the shell for testing.
 echo "Starting the test shell..."
@@ -68,6 +68,6 @@ if [ $kill_status -eq 0 ]; then
   echo "Test shell stopped."
 else
   echo "kill $server_pid failed; killing all running shell processes now..."
-  pkill posix-shell
+  pkill ilsh
   echo "All shells stopped."
 fi

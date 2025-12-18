@@ -1,6 +1,6 @@
-//! A POSIX-Compliant Shell (CLI) Implementation in Rust
+//! `ilsh` - A POSIX-Compliant Shell (CLI) Implementation in Rust
 
-use posix_shell::repl::repl;
+use ilsh::repl::repl;
 
 fn main() {
     repl();

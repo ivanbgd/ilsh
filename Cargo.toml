@@ -1,6 +1,6 @@
 [package]
-name = "posix-shell"
-description = "A POSIX-Compliant Shell (CLI) Implementation in Rust"
+name = "ilsh"
+description = "`ilsh` - A POSIX-Compliant Shell (CLI) Implementation in Rust"
 version = "0.1.0"
 authors = ["Ivan Lazarević"]
 repository = "https://github.com/ivanbgd/posix-shell-rust"
@@ -15,12 +15,12 @@ rust-version = "1.89.0"
 path = "src/lib.rs"
 
 [[bin]]
-name = "posix-shell"
+name = "ilsh"
 path = "src/main.rs"
 
 [dependencies]
 
 [profile.release]
 strip = "symbols"
-#lto = "fat"
-#codegen-units = 1
+lto = "fat"
+codegen-units = 1

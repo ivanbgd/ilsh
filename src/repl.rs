@@ -9,13 +9,13 @@
 //! - [REPL @ Wikipedia](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)
 //! - [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/)
 
-use crate::cmd::{run_program, Output};
+use crate::cmd::{Output, run_program};
 use crate::constants::{
-    Handler, COMMANDS, DEBUG, FAILED_FLUSH_TO_STDERR, FAILED_FLUSH_TO_STDOUT,
-    FAILED_READ_LINE, FAILED_WRITE_TO_STDERR, FAILED_WRITE_TO_STDOUT, HANDLERS, PROMPT, TEST,
+    COMMANDS, DEBUG, FAILED_FLUSH_TO_STDERR, FAILED_FLUSH_TO_STDOUT, FAILED_READ_LINE,
+    FAILED_WRITE_TO_STDERR, FAILED_WRITE_TO_STDOUT, HANDLERS, Handler, PROMPT, TEST,
 };
-use crate::parse::{parse_input, RedirectionMode, Redirections};
-use crate::test_to_break_or_continue;
+use crate::parse::{RedirectionMode, Redirections, parse_input};
+// use crate::test_to_break_or_continue; // todo
 use std::collections::HashMap;
 use std::fs::{File, OpenOptions};
 use std::io::{self, Stderr, Stdout, Write};
@@ -27,7 +27,7 @@ use std::{fs, mem};
 pub fn repl() {
     get_debug();
     get_test();
-    eprintln!("DEBUG = {:?}, TEST = {:?}", DEBUG, TEST); // todo rem
+    // eprintln!("DEBUG = {:?}, TEST = {:?}", DEBUG, TEST); // todo rem
 
     let stdin = io::stdin();
     let mut stdout = io::stdout();
@@ -80,7 +80,8 @@ fn parse_input_and_handle_cmds(stdout: &mut Stdout, stderr: &mut Stderr, input: 
     let cmd = items[0].trim();
     let args = if items.len() > 1 { &items[1..] } else { &[] };
 
-    let mut output = match handlers.get(cmd) {
+    // let mut output = match handlers.get(cmd) { // TODO - check `mut`
+    let output = match handlers.get(cmd) {
         Some(&handler) => handler(args),
         None => run_program(cmd, args),
     };
@@ -116,19 +117,20 @@ fn handle_redirections(
     let (mut stdout_redir, mut stderr_redir) = (redirections.stdout, redirections.stderr);
     let (mut stdout_data, mut stderr_data) = output.get();
 
-    eprintln!(
-        "01a stdout_redir: {:?}, stderr_redir: {:?}",
-        &stdout_redir, &stderr_redir
-    );
-    eprintln!(
-        "01b stdout_data: {:?}, stderr_data: {:?}",
-        String::from_utf8_lossy(&stdout_data),
-        String::from_utf8_lossy(&stderr_data)
-    );
+    // eprintln!(
+    //     "01a stdout_redir: {:?}, stderr_redir: {:?}",
+    //     &stdout_redir, &stderr_redir
+    // ); // todo
+    // eprintln!(
+    //     "01b stdout_data: {:?}, stderr_data: {:?}",
+    //     String::from_utf8_lossy(&stdout_data),
+    //     String::from_utf8_lossy(&stderr_data)
+    // ); // todo
 
     let mut stdout_targets = stdout_redir.clone().paths; // todo rem clone()
     let mut stderr_targets = stderr_redir.clone().paths; // todo rem clone()
 
+    // todo
     // if stdout_redir.kind != RedirectionMode::None
     //     && !stdout_targets.is_empty()
     //     && stdout_targets
@@ -149,7 +151,7 @@ fn handle_redirections(
                     .is_empty())
     {
         // TODO: Should I also swap here?!
-        eprintln!("here: stdout_redir");
+        // eprintln!("here: stdout_redir"); // todo
         stdout_redir.kind = RedirectionMode::None;
     }
 
@@ -173,34 +175,34 @@ fn handle_redirections(
                     .is_empty())
     {
         // TODO: This is probably good, so don't touch it.
-        eprintln!("Swap stderr_redir!");
+        // eprintln!("Swap stderr_redir!"); // todo
         mem::swap(&mut stdout_data, &mut stderr_data);
         mem::swap(&mut stdout_targets, &mut stderr_targets);
         stdout_redir.kind = stderr_redir.kind;
         stderr_redir.kind = RedirectionMode::None;
     }
 
-    eprintln!("02a stdout_redir: {stdout_redir:?}, stderr_redir: {stderr_redir:?}");
-    eprintln!(
-        "02b stdout_data: {:?}, stderr_data: {:?}",
-        String::from_utf8_lossy(&stdout_data),
-        String::from_utf8_lossy(&stderr_data)
-    );
+    // eprintln!("02a stdout_redir: {stdout_redir:?}, stderr_redir: {stderr_redir:?}"); // todo
+    // eprintln!(
+    //     "02b stdout_data: {:?}, stderr_data: {:?}",
+    //     String::from_utf8_lossy(&stdout_data),
+    //     String::from_utf8_lossy(&stderr_data)
+    // ); // todo
 
     stdout_targets = stdout_redir.paths;
     stderr_targets = stderr_redir.paths;
 
-    eprintln!("STDOUT");
+    // eprintln!("STDOUT"); // todo
     // let stdout_targets = stdout_redir.paths.expect("Expected targets"); todo remove
     // let stdout_targets = stdout_redir.paths; //.unwrap_or_default(); // todo clean up
     // eprintln!("* {stdout_targets:?}, {}", stdout_targets.len()); // todo remove
 
     // Truncate all but the last target file to zero size.
     for target in &stdout_targets[..stdout_targets.len().saturating_sub(1)] {
-        eprintln!("HERE 1a");
-        eprintln!("* {}", target.display()); // todo remove
+        // eprintln!("HERE 1a"); // todo
+        // eprintln!("* {}", target.display()); // todo remove
         if target.clone().into_os_string().is_empty() {
-            eprintln!("HERE 2a");
+            // eprintln!("HERE 2a"); // todo
             continue;
         }
         if let Err(err) = File::create(target) {
@@ -231,16 +233,16 @@ fn handle_redirections(
         }
     }
 
-    eprintln!("STDERR");
+    // eprintln!("STDERR"); // todo
     // let stderr_targets = stderr_redir.paths.expect("Expected targets"); todo remove
     // let stderr_targets = stderr_redir.paths; //.unwrap_or_default(); // todo clean up
 
     // Truncate all but the last target file to zero size.
     for target in &stderr_targets[..stderr_targets.len().saturating_sub(1)] {
-        eprintln!("HERE 1b");
-        eprintln!("* {}", target.display()); // todo remove
+        // eprintln!("HERE 1b"); // todo
+        // eprintln!("* {}", target.display()); // todo remove
         if target.clone().into_os_string().is_empty() {
-            eprintln!("HERE 2b");
+            // eprintln!("HERE 2b"); // todo
             continue;
         }
         if let Err(err) = File::create(target) {
@@ -248,6 +250,7 @@ fn handle_redirections(
         }
     }
 
+    // todo
     // eprintln!("HERE 3: {:?}", stderr_targets.last().expect("Expected a target"));
     // let last_stderr_target = stderr_targets.last().expect("Expected last stderr target");
     // stderr

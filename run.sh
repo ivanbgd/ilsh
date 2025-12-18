@@ -12,4 +12,4 @@ export DEBUG=true
   cargo build --release --target-dir=/tmp/build-shell --manifest-path Cargo.toml
 )
 
-exec /tmp/build-shell/release/posix-shell "$@"
+exec /tmp/build-shell/release/ilsh "$@"

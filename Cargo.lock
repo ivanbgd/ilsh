@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "posix-shell"
+name = "ilsh"
 version = "0.1.0"
