@@ -21,7 +21,6 @@
 
 - Mostly [bash](https://www.gnu.org/software/bash/) is used as a reference, but not everything is in accordance
   with `bash`.
-    - ~~Some things are in accordance with the `zsh` - for example, multiple redirection.~~
 - Supports running external programs with arguments.
     - External programs are located using the [PATH](https://en.wikipedia.org/wiki/PATH_(variable)) environment
       variable.
