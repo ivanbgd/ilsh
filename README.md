@@ -3,8 +3,8 @@
 [![license](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](LICENSE)
 [![Crates.io](https://img.shields.io/crates/v/ilsh.svg)](https://crates.io/crates/ilsh)
 [![docs.rs](https://docs.rs/ilsh/badge.svg)](https://docs.rs/ilsh/)
-[![CI](https://github.com/ivanbgd/posix-shell-rust/actions/workflows/ci.yml/badge.svg)](https://github.com/ivanbgd/posix-shell-rust/actions/workflows/ci.yml)
-[![Security audit](https://github.com/ivanbgd/posix-shell-rust/actions/workflows/audit.yml/badge.svg)](https://github.com/ivanbgd/posix-shell-rust/actions/workflows/audit.yml)
+[![CI](https://github.com/ivanbgd/ilsh/actions/workflows/ci.yml/badge.svg)](https://github.com/ivanbgd/ilsh/actions/workflows/ci.yml)
+[![Security audit](https://github.com/ivanbgd/ilsh/actions/workflows/audit.yml/badge.svg)](https://github.com/ivanbgd/ilsh/actions/workflows/audit.yml)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 
 # Supported Builtin Commands
@@ -61,7 +61,20 @@ After installing it, the provided [pre-commit hook(s)](.pre-commit-config.yaml) 
 # Running the Program
 
 ```shell
-$ ./run.sh
+cargo run --release
+```
+
+```shell
+export DEBUG=false
+cargo run --release
+```
+
+A run script is provided.
+
+The run script can set the `DEBUG` environment variable to `false` or `true`.
+
+```shell
+./run.sh
 ```
 
 # Building and Running the Program with Debug Output
@@ -74,12 +87,12 @@ It can be set outside the program, in the user shell, or inside the `run.sh` she
 This is only considered during **compile time**, and **not** during run time.
 
 ```shell
-$ DEBUG=true ./run.sh
+DEBUG=true ./run.sh
 ```
 
 ```shell
 export DEBUG=true
-$ ./run.sh
+./run.sh
 ```
 
 # Testing
